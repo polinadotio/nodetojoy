@@ -4,8 +4,17 @@ var app = express();
 
 // initialize express
 // Mongoose DB Connection
+var uri  = (process.env.MONGOLAB_URI || 'mongodb://mkslegacy:ripmatchr@ds039165.mongolab.com:39165/mkslegacy');
 
-mongoose.connect('mongodb://mkslegacy:ripmatchr@ds039165.mongolab.com:39165/mkslegacy');
+mongoose.connect(uri);
+
+var db = mongoose.connection;
+
+db.on("error", console.error.bind(console, 'connection error:'));
+
+db.once("open", function(callback) {
+  console.log("We've opened a connection");
+});
 
 //http is for any network protocal
 
