@@ -10,7 +10,6 @@ angular.module('eventsInfo', [])
     $scope.eve.houseName = 'Hacker House';
 
     $scope.refreshEvents = function() {
-      $interval(function(){
         Eventstored.getData().then(function(events) {
 
           var allEvents = events.data;
@@ -26,7 +25,6 @@ angular.module('eventsInfo', [])
           var formattedEvents = Eventstored.formatData(events);
           $scope.bookedEvents = formattedEvents;
         });
-      }, 500);
     };
 
     $scope.renderSideDashboard = function() {
@@ -47,7 +45,7 @@ angular.module('eventsInfo', [])
       });
 
       // removing past daily dibs every 30s
-      $scope.refreshEvents();
+      //$scope.refreshEvents();
     };
 
     $scope.highlightEvents = function(event) {
@@ -71,6 +69,7 @@ angular.module('eventsInfo', [])
         }
       });
       // Eventstored.getData();
+      $scope.refreshEvents();
       $scope.renderSideDashboard();
     };
 
