@@ -13,7 +13,7 @@
     "url": "git+https://github.com/nodetojoy/nodetojoy.git"
   },
   "author": "Joe Lagasse, Time Steele, Tyler Ferrier, Robert Cardiff",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/nodetojoy/nodetojoy/issues"
   },
