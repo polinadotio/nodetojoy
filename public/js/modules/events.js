@@ -14,14 +14,14 @@ angular.module('eventsInfo', [])
         Eventstored.getData().then(function(events) {
 
           var allEvents = events.data;
-          console.log(allEvents);
+          //console.log(allEvents);
           var today = moment().dayOfYear();
 
           for (var i = 0; i < allEvents.length; i++) {
             var eachDib = moment(allEvents[i].eventDate).dayOfYear();
             var diff = eachDib - today;
             allEvents[i].diff = diff;
-            console.log('This is the flag', diff);
+            //console.log('This is the flag', diff);
           }
           var formattedEvents = Eventstored.formatData(events);
           $scope.bookedEvents = formattedEvents;
@@ -33,14 +33,14 @@ angular.module('eventsInfo', [])
       $state.go('dashboardPage.events');
       Eventstored.getData().then(function(events) {
           var allEvents = events.data;
-          console.log(allEvents);
+          //console.log(allEvents);
           var today = moment().dayOfYear();
 
           for (var i = 0; i < allEvents.length; i++) {
             var eachDib = moment(allEvents[i].eventDate).dayOfYear();
             var diff = eachDib - today;
             allEvents[i].diff = diff;
-            console.log('This is the flag', diff);
+            //console.log('This is the flag', diff);
           }
         var formattedEvents = Eventstored.formatData(events);
         $scope.bookedEvents = formattedEvents;
@@ -51,13 +51,13 @@ angular.module('eventsInfo', [])
     };
 
     $scope.highlightEvents = function(event) {
-    console.log('test', event.diff);
+    //console.log('test', event.diff);
       
         if(event.diff <= 1){
-          console.log(true);
+          //console.log(true);
           return true;
         } else {
-          console.log(false);
+          //console.log(false);
           return false;
         }
     };
