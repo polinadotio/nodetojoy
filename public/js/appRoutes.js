@@ -43,7 +43,7 @@ angular.module('dibs', ['ngAnimate', 'ui.bootstrap','ui.router','eventsInfo', 'e
           }         
         },
         data : { authenticate: false }
-      })
+      });
     })
   
   .factory('AttachToken', function($window) {

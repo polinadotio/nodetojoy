@@ -3,11 +3,11 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     jshint: {
-      files: ['public/**/*.js','server/**/*.js','server.js'],
+      files: ['public/js/**/*.js','server/**/*.js'],
     },
 
     watch: {
-      files: ['public/**/*.js','server/**/*.js','server.js'],
+      files: ['public/js/**/*.js','server/**/*.js'],
       tasks: ['jshint']
     }
   });
