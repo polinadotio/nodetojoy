@@ -5,7 +5,7 @@ var app = express();
 // initialize express
 // Mongoose DB Connection
 
-mongoose.connect('mongodb://nodetojoy:nodetojoy@ds037165.mongolab.com:37165/nodetojoy');
+mongoose.connect('mongodb://mkslegacy:ripmatchr@ds039165.mongolab.com:39165/mkslegacy');
 
 //http is for any network protocal
 
