@@ -27,4 +27,5 @@ takes care of entire client side
 
 app.use(express.static(__dirname +  "/../public"));
 
+
 server.listen(port);
