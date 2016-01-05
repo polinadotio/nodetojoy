@@ -17,7 +17,7 @@ Getting Started with Dibbr
 - Fork the repo
 - `git clone https://github.com/your-username/nodetojoy.git`
 - `npm install`, `bower install`
-- Start server: `nodemon server/server.js`
+- Start server: `npm start`
 
 Contributing
 -------------------

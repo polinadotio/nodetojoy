@@ -1,9 +1,11 @@
 var bodyParser = require('body-parser');
 var helpers = require('./helpers.js');
 var utility = require(__dirname + '/../utility/utility.js');
+var morgan = require('morgan');
 
 module.exports = function(app, express) {
   app.use(bodyParser.json());
+  app.use(morgan('combined'));
   //creating routes for each individual moduels (groups of routes)
   
   var userRouter = express.Router();
