@@ -16,8 +16,7 @@ angular.module('userInfo', [])
         $state.go('dashboardPage');	
         SignUpFactory.signUpData($scope.user)
           .then(function(token) {
-            $window.localStorage
-            .setItem('dibsToken', token.data);
+            $window.localStorage.setItem('dibsToken', token.data);
           });
       }
     },
