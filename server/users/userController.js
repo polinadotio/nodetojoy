@@ -24,6 +24,7 @@ module.exports = {
       })
       .then(function(createdUser) {
         var token = jwt.encode(createdUser, 'WILDCARD');
+        console.log("TOKEN CREATED", token);
         res.json(token);
       });
   },
