@@ -5,6 +5,9 @@ Promise.promisifyAll(require('mongoose'));
 module.exports = {
   postEvent: function(req,res) {
     //checks if event already exists
+    var token = req.headers["x-access-token"];
+    console.log("ACCESS TOKEN", token);
+    
     eventModel.findOne({ 
       'eventDate': req.body.dibEvent.eventDate,
       'roomName': req.body.dibEvent.roomName
@@ -20,6 +23,9 @@ module.exports = {
   },
 
   getEvent: function(req,res) {
+    var token = req.headers["x-access-token"];
+    console.log("ACCESS TOKEN", token);
+
     eventModel.find({'eventDate' : { $gte : new Date()} })
       .sort({eventDate: 1})
       .then(function(booked) {
