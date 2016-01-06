@@ -4,6 +4,7 @@ var utility = require(__dirname + '/../utility/utility.js');
 var morgan = require('morgan');
 var passport = require('passport');
 var session = require('express-session');
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 module.exports = function(app, express) {
   app.use(bodyParser.json());
@@ -16,11 +17,11 @@ module.exports = function(app, express) {
   passport.serializeUser(function(user, done) {
     done(null, user);
   });
-  
+
   passport.deserializeUser(function(obj, done) {
     done(null, obj);
   });
-  
+
   var userRouter = express.Router();
   require(__dirname + '/../users/userRoutes.js')(userRouter);
   // app.use('/api/users', utility.decode);
@@ -35,8 +36,31 @@ module.exports = function(app, express) {
   /*************************************************************
   Google Auth
   **************************************************************/
+  var callback = process.env.CALLBACK || "http://127.0.0.1:5000/auth/google/callback";
 
-  app.get('/auth/google', function(request, response) {
-    response.send('google authentication route');
-  });
+  passport.use(new GoogleStrategy({
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      callbackURL: callback
+    },
+    function(accessToken, refreshToken, profile, done) {
+
+      //create a user in the db
+      console.log("profile", profile);
+      return done(null, "was successful");
+    }
+  ));
+
+  app.get('/auth/google', 
+    passport.authenticate('google', {scope: ['profile', 'email','https://www.googleapis.com/auth/calendar']})
+  );
+
+  app.get('/auth/google/callback', 
+    passport.authenticate('google'),
+    function(req, res) {
+      // Successful authentication, redirect home.
+      res.redirect('/');
+    }
+  );
+
 };
