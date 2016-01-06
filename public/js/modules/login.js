@@ -13,7 +13,8 @@ angular.module('loginInfo', [])
         LoginFactory.userLoginIn($scope.loginUser)
           .then(function(finalResult) {
             if(finalResult.data.result){
-              $state.go('dashboardPage'); 
+              $window.localStorage.setItem('dibsToken', finalResult.data.token);
+              $state.go('dashboardPage');
             } else {
               alert("Incorrect Username or Password");              
             }
