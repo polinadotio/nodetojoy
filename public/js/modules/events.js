@@ -9,37 +9,45 @@ angular.module('eventsInfo', [])
     $scope.eve.roomName = '';
     $scope.eve.houseName = 'Hacker House';
 
+    $scope.ifValue = true;
+    $scope.showIf = function() {
+      return $scope.ifValue;
+    };
+    $scope.hideIf = function() {
+      return !$scope.ifValue;
+    };
+
     $scope.refreshEvents = function() {
-        Eventstored.getData().then(function(events) {
+      Eventstored.getData().then(function(events) {
 
-          var allEvents = events.data;
-          //console.log(allEvents);
-          var today = moment().dayOfYear();
+        var allEvents = events.data;
+        //console.log(allEvents);
+        var today = moment().dayOfYear();
 
-          for (var i = 0; i < allEvents.length; i++) {
-            var eachDib = moment(allEvents[i].eventDate).dayOfYear();
-            var diff = eachDib - today;
-            allEvents[i].diff = diff;
-            //console.log('This is the flag', diff);
-          }
-          var formattedEvents = Eventstored.formatData(events);
-          $scope.bookedEvents = formattedEvents;
-        });
+        for (var i = 0; i < allEvents.length; i++) {
+          var eachDib = moment(allEvents[i].eventDate).dayOfYear();
+          var diff = eachDib - today;
+          allEvents[i].diff = diff;
+          //console.log('This is the flag', diff);
+        }
+        var formattedEvents = Eventstored.formatData(events);
+        $scope.bookedEvents = formattedEvents;
+      });
     };
 
     $scope.renderSideDashboard = function() {
       $state.go('dashboardPage.events');
       Eventstored.getData().then(function(events) {
-          var allEvents = events.data;
-          //console.log(allEvents);
-          var today = moment().dayOfYear();
+        var allEvents = events.data;
+        //console.log(allEvents);
+        var today = moment().dayOfYear();
 
-          for (var i = 0; i < allEvents.length; i++) {
-            var eachDib = moment(allEvents[i].eventDate).dayOfYear();
-            var diff = eachDib - today;
-            allEvents[i].diff = diff;
-            //console.log('This is the flag', diff);
-          }
+        for (var i = 0; i < allEvents.length; i++) {
+          var eachDib = moment(allEvents[i].eventDate).dayOfYear();
+          var diff = eachDib - today;
+          allEvents[i].diff = diff;
+          //console.log('This is the flag', diff);
+        }
         var formattedEvents = Eventstored.formatData(events);
         $scope.bookedEvents = formattedEvents;
       });
@@ -48,26 +56,31 @@ angular.module('eventsInfo', [])
       //$scope.refreshEvents();
     };
 
+    $scope.renderSideDashboardChart = function() {
+      $state.go('dashboardPage.eventsChart');
+    };
+
+
     $scope.highlightEvents = function(event) {
-    //console.log('test', event.diff);
-      
-        if(event.diff <= 1){
-          //console.log(true);
-          return true;
-        } else {
-          //console.log(false);
-          return false;
-        }
+      //console.log('test', event.diff);
+
+      if (event.diff <= 1) {
+        //console.log(true);
+        return true;
+      } else {
+        //console.log(false);
+        return false;
+      }
     };
 
     $scope.eventSubmit = function() {
       var $events = $scope.eve;
       Eventstored.eventData($events)
-      .then(function(message) {
-        if(!message.data.result){
-          alert('Someone else called Dibs!');
-        }
-      });
+        .then(function(message) {
+          if (!message.data.result) {
+            alert('Someone else called Dibs!');
+          }
+        });
       // Eventstored.getData();
       $scope.refreshEvents();
       $scope.renderSideDashboard();
@@ -88,26 +101,26 @@ angular.module('eventsInfo', [])
 
     $scope.ismeridian = true;
     $scope.toggleMode = function() {
-      $scope.ismeridian = ! $scope.ismeridian;
+      $scope.ismeridian = !$scope.ismeridian;
     };
 
     $scope.update = function() {
       var d = $scope.eve.eventDate;
-      d.setHours( 15 );
-      d.setMinutes( 0 );
+      d.setHours(15);
+      d.setMinutes(0);
       // $scope.eve.eventDate = d;
     };
 
     // used to help render the date
-    $scope.dt = + new Date();
+    $scope.dt = +new Date();
 
     $scope.today = function() {
-    $scope.eve.eventDate = new Date();
+      $scope.eve.eventDate = new Date();
     };
 
     $scope.today();
 
-    $scope.clear = function () {
+    $scope.clear = function() {
       $scope.eve.eventDate = null;
     };
 
@@ -141,21 +154,19 @@ angular.module('eventsInfo', [])
     tomorrow.setDate(tomorrow.getDate() + 1);
     var afterTomorrow = new Date();
     afterTomorrow.setDate(tomorrow.getDate() + 2);
-    $scope.events =[{
-          date: tomorrow,
-          status: 'full'
-        },
-        {
-          date: afterTomorrow,
-          status: 'partially'
-        }
-      ];
+    $scope.events = [{
+      date: tomorrow,
+      status: 'full'
+    }, {
+      date: afterTomorrow,
+      status: 'partially'
+    }];
 
     $scope.getDayClass = function(date, mode) {
       if (mode === 'day') {
-        var dayToCheck = new Date(date).setHours(0,0,0,0);
-        for (var i=0;i<$scope.events.length;i++){
-          var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+        var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+        for (var i = 0; i < $scope.events.length; i++) {
+          var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
           if (dayToCheck === currentDay) {
             return $scope.events[i].status;
           }
