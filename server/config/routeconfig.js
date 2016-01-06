@@ -22,6 +22,13 @@ module.exports = function(app, express) {
     done(null, obj);
   });
 
+  var ensureAuthenticated = function(req, res, next) {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.redirect('/failure');
+  }
+
   var userRouter = express.Router();
   require(__dirname + '/../users/userRoutes.js')(userRouter);
   // app.use('/api/users', utility.decode);
@@ -31,7 +38,7 @@ module.exports = function(app, express) {
   var eventRouter = express.Router();
   require(__dirname + '/../events/eventRoutes.js')(eventRouter);
   // app.use('/api/events', utility.decode);
-  app.use('/api/events', eventRouter);
+  app.use('/api/events', ensureAuthenticated, eventRouter);
   
   /*************************************************************
   Google Auth
@@ -62,5 +69,10 @@ module.exports = function(app, express) {
       res.redirect('/');
     }
   );
+
+  app.get('/failure', function(req, res) {
+    res.status('404');
+    res.send("you don't have access to that resource. redirecting to sign in.");
+  });
 
 };
