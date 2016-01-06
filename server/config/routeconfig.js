@@ -16,7 +16,8 @@ module.exports = function(app, express) {
 
   var eventRouter = express.Router();
   require(__dirname + '/../events/eventRoutes.js')(eventRouter);
-  app.use('/api/events', utility.decode);
+  
+  // app.use('/api/events', utility.decode);
   app.use('/api/events', eventRouter);
 
 };
