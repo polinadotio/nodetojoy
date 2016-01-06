@@ -24,6 +24,7 @@ module.exports = {
       })
       .then(function(createdUser) {
         var token = jwt.encode(createdUser, 'WILDCARD');
+        console.log("TOKEN CREATED", token);
         res.json(token);
       });
   },
@@ -33,11 +34,14 @@ module.exports = {
 
     check({ 'username': req.body.loginData.username,
         'password': req.body.loginData.password })
-      .then(function(result) {
-        if(result){
-          return res.json({ result: true });
+      .then(function(loggedInUser) {
+        if(loggedInUser){
+          console.log("server result", loggedInUser);
+          //create a jwt for a logged in user that already exists
+          var token = jwt.encode(loggedInUser, 'WILDCARD');
+          return res.json({ result: true, token:token });
           //Users exists and password matches
-            //pass them through. 
+          //pass them through. 
         } else {
           return res.json({ result: false });
           //Users info doesn't match

@@ -1,6 +1,6 @@
 angular.module('eventsInfo', [])
   .constant('moment', moment)
-  .controller('eventsController', function($scope, $state, Eventstored, moment, $interval) {
+  .controller('eventsController', function($scope, $state, Eventstored, moment, $interval, $window) {
     $scope.eve = {};
     $scope.eve.eventDate = '';
     $scope.eve.eventDescription = '';
@@ -87,6 +87,9 @@ angular.module('eventsInfo', [])
     };
 
     $scope.signout = function() {
+      //remove jwt here
+      console.log("I'm signing out");
+      $window.localStorage.clear();
       $state.go('signupPage');
     };
 
