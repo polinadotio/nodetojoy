@@ -19,6 +19,7 @@ angular.module('eventsInfo', [])
 
     $scope.refreshEvents = function() {
       Eventstored.getData().then(function(events) {
+        
 
         var allEvents = events.data;
         //console.log(allEvents);
@@ -37,7 +38,7 @@ angular.module('eventsInfo', [])
 
     $scope.renderSideDashboard = function() {
       $state.go('dashboardPage.events');
-      Eventstored.getData().then(function(events) {
+      Eventstored.getData().then(function successCallback(events) {
         var allEvents = events.data;
         //console.log(allEvents);
         var today = moment().dayOfYear();
@@ -50,6 +51,16 @@ angular.module('eventsInfo', [])
         }
         var formattedEvents = Eventstored.formatData(events);
         $scope.bookedEvents = formattedEvents;
+      },function errorCallback(response) {
+
+        //do not have access to events resource
+        //user must not be logged in
+        //redirect to signup
+
+        $state.go('signupPage');
+        
+        console.log("RESPONSE",response);
+
       });
 
       // removing past daily dibs every 30s
