@@ -1,16 +1,16 @@
-
+$("#brandonChart").empty();
 
 d3.gantt = function() {
   var FIT_TIME_DOMAIN_MODE = "fit";
   var FIXED_TIME_DOMAIN_MODE = "fixed";
 
   var margin = {
-    top: 20,
-    right: 40,
-    bottom: 20,
-    left: 150
+    top: 50,
+    right: 0,
+    bottom: 0,
+    left: 75
   };
-  var selector = 'body';
+  var selector = '#brandonChart';
   var timeDomainStart = d3.time.day.offset(new Date(), -3);
   var timeDomainEnd = d3.time.hour.offset(new Date(), +3);
   var timeDomainMode = FIT_TIME_DOMAIN_MODE; // fixed or fit
@@ -234,7 +234,7 @@ d3.gantt = function() {
 };
 
 
-// example();
+example();
 
 
 function example() {
