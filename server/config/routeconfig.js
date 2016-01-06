@@ -2,11 +2,24 @@ var bodyParser = require('body-parser');
 var helpers = require('./helpers.js');
 var utility = require(__dirname + '/../utility/utility.js');
 var morgan = require('morgan');
+var passport = require('passport');
+var session = require('express-session');
 
 module.exports = function(app, express) {
   app.use(bodyParser.json());
   app.use(morgan('combined'));
-  //creating routes for each individual moduels (groups of routes)
+    //passport
+  app.use(session({secret: 'SECRET'}))
+  app.use(passport.initialize());
+  app.use(passport.session()); // persistent login sessions
+  
+  passport.serializeUser(function(user, done) {
+    done(null, user);
+  });
+  
+  passport.deserializeUser(function(obj, done) {
+    done(null, obj);
+  });
   
   var userRouter = express.Router();
   require(__dirname + '/../users/userRoutes.js')(userRouter);
@@ -16,8 +29,14 @@ module.exports = function(app, express) {
 
   var eventRouter = express.Router();
   require(__dirname + '/../events/eventRoutes.js')(eventRouter);
-  
   // app.use('/api/events', utility.decode);
   app.use('/api/events', eventRouter);
+  
+  /*************************************************************
+  Google Auth
+  **************************************************************/
 
+  app.get('/auth/google', function(request, response) {
+    response.send('google authentication route');
+  });
 };
