@@ -16,8 +16,8 @@ d3.gantt = function() {
   var timeDomainMode = FIT_TIME_DOMAIN_MODE; // fixed or fit
   var taskTypes = [];
   var taskStatus = [];
-  var height = document.body.clientHeight - margin.top - margin.bottom - 5;
-  var width = document.body.clientWidth - margin.right - margin.left - 5;
+  var height = 300 /*document.body.clientHeight - margin.top - margin.bottom - 5;*/
+  var width = 400 /*document.body.clientWidth - margin.right - margin.left - 5;*/
 
   var tickFormat = "%H:%M";
 
@@ -234,7 +234,7 @@ d3.gantt = function() {
 };
 
 
-example();
+// example();
 
 
 function example() {
