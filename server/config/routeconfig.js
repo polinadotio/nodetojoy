@@ -75,4 +75,9 @@ module.exports = function(app, express) {
     res.send("you don't have access to that resource. redirecting to sign in.");
   });
 
+  app.get('/logout', function(req, res) {
+    req.session.destroy();
+    res.send("destroyed session");
+  });
+
 };
