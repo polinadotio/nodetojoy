@@ -83,7 +83,7 @@ angular.module('eventsInfo', [])
         });
       // Eventstored.getData();
       $scope.refreshEvents();
-      $scope.renderSideDashboar();
+      $scope.renderSideDashboard();
     };
 
     $scope.signout = function() {
