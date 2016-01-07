@@ -17,7 +17,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
 
     $scope.closeAlert = function(index) {
       $scope.alerts.splice(index, 1);
-    }
+    };
 
     $scope.addAlert = function(alert) {
       $scope.alerts.push(alert);
@@ -323,7 +323,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
 
     $scope.renderSideDashboardChart2 = function () {
       $state.go('dashboardPage.eventsChart');
-    }
+    };
 
  
   });
