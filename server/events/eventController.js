@@ -5,31 +5,35 @@ Promise.promisifyAll(require('mongoose'));
 var google = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
 var oauth2Client = new OAuth2(process.env.CLIENT_ID,
-                              process.env.CLIENT_SECRET, 
-                              "http://127.0.0.1:3000/auth/google/callback");
+  process.env.CLIENT_SECRET,
+  "http://127.0.0.1:3000/auth/google/callback");
 
 module.exports = {
-  postEvent: function(req,res) {
+  postEvent: function(req, res) {
     //checks if event already exists
     var token = req.headers["x-access-token"];
     console.log("ACCESS TOKEN", token);
-   
 
-    eventModel.findOne({ 
+
+    eventModel.findOne({
       'eventDate': req.body.dibEvent.eventDate,
       'roomName': req.body.dibEvent.roomName
     }).then(function(result) {
-      if(result){
-        res.json({ result: false });
+      if (result) {
+        res.json({
+          result: false
+        });
       } else {
         var storeEvent = eventModel.create.bind(eventModel);
         storeEvent(req.body.dibEvent);
-        res.json({ result: true });
+        res.json({
+          result: true
+        });
       }
     });
   },
 
-  postGoogleCal: function(req,res) {
+  postGoogleCal: function(req, res) {
 
     oauth2Client.setCredentials({
       access_token: req.user.accessToken,
@@ -37,7 +41,7 @@ module.exports = {
     });
 
     var description = req.body.event.eventDescription + " at " + req.body.event.houseName;
- 
+
     var event = {
       'summary': description,
       'description': description,
@@ -72,27 +76,35 @@ module.exports = {
     res.json(req.user);
   },
 
-  getEvent: function(req,res) {
+  getEvent: function(req, res) {
     var token = req.headers["x-access-token"];
     console.log("ACCESS TOKEN", token);
-     console.log("REQ SESSION",req.session);
-     console.log("REQ USER",req.user);
+    console.log("REQ SESSION", req.session);
+    console.log("REQ USER", req.user);
 
-    eventModel.find({'eventDate' : { $gte : new Date()} })
-      .sort({eventDate: 1})
+    eventModel.find({
+        'eventDate': {
+          $gte: new Date()
+        }
+      })
+      .sort({
+        eventDate: 1
+      })
       .then(function(booked) {
         return res.json(booked);
       });
   },
 
-  getAllEvents: function(req,res) {
+  getAllEvents: function(req, res) {
     var token = req.headers["x-access-token"];
     console.log("ACCESS TOKEN", token);
-     console.log("REQ SESSION",req.session);
-     console.log("REQ USER",req.user);
+    console.log("REQ SESSION", req.session);
+    console.log("REQ USER", req.user);
 
     eventModel.find()
-      .sort({eventDate: 1})
+      .sort({
+        eventDate: 1
+      })
       .then(function(booked) {
         return res.json(booked);
       });

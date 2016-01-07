@@ -119,7 +119,11 @@ angular.module('eventsInfo', ['ui.bootstrap'])
       }).then(function(response) {
         console.log("created google calendar event", response);
         var successMessage = "Successfully added to Google Calendar! View the event "
-        $scope.addAlert({type: 'success', msg: successMessage, url: response.data});
+        $scope.addAlert({
+          type: 'success',
+          msg: successMessage,
+          url: response.data
+        });
       });
     };
 
@@ -266,7 +270,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
 
     $scope.getEventDataButton = function() {
       Eventstored.getAllData().then(function(events) {
-        var formattedEvents = Eventstored.formatData(events);
+        var formattedEvents = Eventstored.formatAllData(events);
         console.log(formattedEvents);
       });
     };
@@ -285,13 +289,13 @@ angular.module('eventsInfo', ['ui.bootstrap'])
           allEvents[i].diff = diff;
           //console.log('This is the flag', diff);
         }
-        var formattedEvents = Eventstored.formatData(events);
+        var formattedEvents = Eventstored.formatAllData(events);
         $scope.bookedEvents = formattedEvents;
       });
     };
 
     $scope.renderSideDashboardChart = function() {
-      
+
       Eventstored.getAllData().then(function successCallback(events) {
         var allEvents = events.data;
         //console.log(allEvents);
@@ -303,7 +307,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
           allEvents[i].diff = diff;
           //console.log('This is the flag', diff);
         }
-        var formattedEvents = Eventstored.formatData(events);
+        var formattedEvents = Eventstored.formatAllData(events);
         // $scope.bookedEvents = formattedEvents;
       }, function errorCallback(response) {
 
@@ -321,9 +325,9 @@ angular.module('eventsInfo', ['ui.bootstrap'])
       //$scope.refreshEvents();
     };
 
-    $scope.renderSideDashboardChart2 = function () {
+    $scope.renderSideDashboardChart2 = function() {
       $state.go('dashboardPage.eventsChart');
     };
 
- 
+
   });
