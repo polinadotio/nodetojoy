@@ -218,5 +218,5 @@ angular.module('eventsInfo', [])
         console.log(formattedEvents);
       });
   
-    }
+    };
   });

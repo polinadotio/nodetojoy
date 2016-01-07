@@ -7,6 +7,7 @@ module.exports = {
     //checks if event already exists
     var token = req.headers["x-access-token"];
     console.log("ACCESS TOKEN", token);
+    console.log(req.session);
     
     eventModel.findOne({ 
       'eventDate': req.body.dibEvent.eventDate,

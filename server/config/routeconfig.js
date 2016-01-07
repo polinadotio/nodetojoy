@@ -10,7 +10,7 @@ module.exports = function(app, express) {
   app.use(bodyParser.json());
   app.use(morgan('combined'));
     //passport
-  app.use(session({secret: 'SECRET'}))
+  app.use(session({secret: 'SECRET'}));
   app.use(passport.initialize());
   app.use(passport.session()); // persistent login sessions
   
@@ -28,7 +28,7 @@ module.exports = function(app, express) {
       return next();
     }
     res.redirect('/failure');
-  }
+  };
 
   var userRouter = express.Router();
   require(__dirname + '/../users/userRoutes.js')(userRouter);
