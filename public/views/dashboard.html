@@ -59,6 +59,12 @@
           </div>
           <button class="submit-btn" type="submit" ng-click="eventSubmit()">Set Room Dibs!!!</button>
           <button class="submit-btn" type="submit" ng-click="addToGoogleCal()">add to Google Calendar</button>
+
+          <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+          {{alert.msg}}
+          <a href={{alert.url}} target="_blank">here</a>
+          </uib-alert>
+
           <!--3DONE ^ what are we going to do with this data -->
         </div>
       </div>

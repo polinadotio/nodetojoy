@@ -1,4 +1,4 @@
-angular.module('eventsInfo', [])
+angular.module('eventsInfo', ['ui.bootstrap'])
   .constant('moment', moment)
   .controller('eventsController', function($scope, $state, Eventstored, moment, $interval, $window, $http) {
     $scope.eve = {};
@@ -11,6 +11,17 @@ angular.module('eventsInfo', [])
     $scope.eve.roomName = '';
     $scope.eve.user = 'SimonTestForBrandon';
     $scope.eve.houseName = 'Hacker House';
+
+    //an alert is created when an event is pushed to Google Calendar
+    $scope.alerts = [];
+
+    $scope.closeAlert = function(index) {
+      $scope.alerts.splice(index, 1);
+    }
+
+    $scope.addAlert = function(alert) {
+      $scope.alerts.push(alert);
+    };
 
     $scope.ifValue = true;
     $scope.showIf = function() {
@@ -110,6 +121,8 @@ angular.module('eventsInfo', [])
         }
       }).then(function(response) {
         console.log("created google calendar event", response);
+        var successMessage = "Successfully added to Google Calendar! View the event "
+        $scope.addAlert({type: 'success', msg: successMessage, url: response.data});
       });
     };
 
