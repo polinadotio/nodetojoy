@@ -38,5 +38,18 @@ module.exports = {
       .then(function(booked) {
         return res.json(booked);
       });
+  },
+
+  getAllEvents: function(req,res) {
+    var token = req.headers["x-access-token"];
+    console.log("ACCESS TOKEN", token);
+     console.log("REQ SESSION",req.session);
+     console.log("REQ USER",req.user);
+
+    eventModel.find()
+      .sort({eventDate: 1})
+      .then(function(booked) {
+        return res.json(booked);
+      });
   }
 };
