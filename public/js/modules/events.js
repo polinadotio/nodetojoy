@@ -1,12 +1,15 @@
 angular.module('eventsInfo', [])
   .constant('moment', moment)
-  .controller('eventsController', function($scope, $state, Eventstored, moment, $interval, $window) {
+  .controller('eventsController', function($scope, $state, Eventstored, moment, $interval, $window, $http) {
     $scope.eve = {};
     $scope.eve.eventDate = '';
+    $scope.eve.eventEndDate = '';
     $scope.eve.eventDescription = '';
     $scope.eve.eventAlert = '';
     $scope.eve.eventTime = '';
+    $scope.eve.eventEndTime = '';
     $scope.eve.roomName = '';
+    $scope.eve.user = 'SimonTestForBrandon';
     $scope.eve.houseName = 'Hacker House';
 
     $scope.ifValue = true;
@@ -19,6 +22,7 @@ angular.module('eventsInfo', [])
 
     $scope.refreshEvents = function() {
       Eventstored.getData().then(function(events) {
+        
 
         var allEvents = events.data;
         //console.log(allEvents);
@@ -37,7 +41,7 @@ angular.module('eventsInfo', [])
 
     $scope.renderSideDashboard = function() {
       $state.go('dashboardPage.events');
-      Eventstored.getData().then(function(events) {
+      Eventstored.getData().then(function successCallback(events) {
         var allEvents = events.data;
         //console.log(allEvents);
         var today = moment().dayOfYear();
@@ -50,6 +54,16 @@ angular.module('eventsInfo', [])
         }
         var formattedEvents = Eventstored.formatData(events);
         $scope.bookedEvents = formattedEvents;
+      },function errorCallback(response) {
+
+        //do not have access to events resource
+        //user must not be logged in
+        //redirect to signup
+
+        $state.go('signupPage');
+        
+        console.log("RESPONSE",response);
+
       });
 
       // removing past daily dibs every 30s
@@ -88,13 +102,33 @@ angular.module('eventsInfo', [])
 
     $scope.signout = function() {
       //remove jwt here
-      console.log("I'm signing out");
-      $window.localStorage.clear();
-      $state.go('signupPage');
-    };
+      //and remove passport session
+      $http({
+        method: 'GET',
+        url: '/logout'
+      }).then(function successCallback(response) {
+          // this callback will be called asynchronously
+          console.log("I'm signing out");
+          $window.localStorage.clear();
+          $state.go('signupPage');
+          // when the response is available
+        }, function errorCallback(response) {
+          // called asynchronously if an error occurs
+          // or server returns response with an error status.
+        });
+
+      };
 
     //TIME ADDON
     $scope.eve.eventDate = new Date();
+    $scope.hstep = 1;
+    $scope.mstep = 1;
+    $scope.options = {
+      hstep: [1, 2, 3],
+      mstep: [1, 5, 10, 15, 25, 30]
+    };
+
+    $scope.eve.eventEndDate = new Date();
     $scope.hstep = 1;
     $scope.mstep = 1;
     $scope.options = {
@@ -176,5 +210,13 @@ angular.module('eventsInfo', [])
         }
       }
       return '';
+    };
+
+    $scope.getEventDataButton =  function() {
+      Eventstored.getData().then(function(events) {
+        var formattedEvents = Eventstored.formatData(events);
+        console.log(formattedEvents);
+      });
+  
     };
   });
