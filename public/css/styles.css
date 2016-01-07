@@ -197,10 +197,18 @@ h3 {
 .add-oppacity {
     background-color: #ffe4b2 !important;
 }
-.navbar-brand {
-    font-family: 'Yellowtail', cursive;
-}
+
 
 .navbar-fixed-bottom {
     background-color: rgb(21, 29, 29);
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+#nav-google-text {
+    font-size: 1.2em;
+    color: #fff;
+    font-family: 'Josefin Slab', sans-serif;
 }
