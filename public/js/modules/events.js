@@ -3,10 +3,13 @@ angular.module('eventsInfo', [])
   .controller('eventsController', function($scope, $state, Eventstored, moment, $interval, $window) {
     $scope.eve = {};
     $scope.eve.eventDate = '';
+    $scope.eve.eventEndDate = '';
     $scope.eve.eventDescription = '';
     $scope.eve.eventAlert = '';
     $scope.eve.eventTime = '';
+    $scope.eve.eventEndTime = '';
     $scope.eve.roomName = '';
+    $scope.eve.user = 'SimonTestForBrandon';
     $scope.eve.houseName = 'Hacker House';
 
     $scope.ifValue = true;
@@ -95,6 +98,14 @@ angular.module('eventsInfo', [])
 
     //TIME ADDON
     $scope.eve.eventDate = new Date();
+    $scope.hstep = 1;
+    $scope.mstep = 1;
+    $scope.options = {
+      hstep: [1, 2, 3],
+      mstep: [1, 5, 10, 15, 25, 30]
+    };
+
+    $scope.eve.eventEndDate = new Date();
     $scope.hstep = 1;
     $scope.mstep = 1;
     $scope.options = {

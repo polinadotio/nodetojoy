@@ -14,7 +14,7 @@
         <div class="col-md-6">
             <div class="nav nav-list">
                 <div class="sideBar">
-                    <!-- Angular datePicker -->
+                    <!-- Angular datePicker (start date)-->
                     <h3>Create Dibs</h3>
                     <div class="input-group">
                         <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="eve.eventDate" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
@@ -22,8 +22,18 @@
                             <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
                     </div>
-                    <!-- Angular datePicker End -->
-                    <!-- Angular TimePicker -->
+                    <!-- Angular datePicker End (start date)-->
+
+                    <!-- Angular datePicker (end date)-->
+                    <div class="input-group">
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="eve.eventEndDate" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
+                    <!-- Angular datePicker End (end date)-->
+
+                    <!-- Angular TimePicker (start time)-->
                     <div class="timePicker">
                         <div class="timePickerLeft">
                             <uib-timepicker ng-model="eve.eventDate" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" class='centerTime'></uib-timepicker>
@@ -32,7 +42,19 @@
                             <pre class="alert alert-info">Dibs on: {{eve.eventDate  | date:'shortDate' }} | {{eve.eventDate  | date:'shortTime' }}</pre>
                         </div>
                     </div>
-                    <!-- Angular TimePicker End -->
+                    <!-- Angular TimePicker End (start time)-->
+
+                    <!-- Angular TimePicker (end time)-->
+                    <div class="timePicker">
+                        <div class="timePickerLeft">
+                            <uib-timepicker ng-model="eve.eventEndDate" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" class='centerTime'></uib-timepicker>
+                        </div>
+                        <div class="timePickerRight">
+                            <pre class="alert alert-info">Dibs on: {{eve.eventEndDate  | date:'shortDate' }} | {{eve.eventEndDate  | date:'shortTime' }}</pre>
+                        </div>
+                    </div>
+                    <!-- Angular TimePicker End (end time)-->
+
                     <div>
                         <input class="standardInputStyling" ng-model="eve.eventDescription" placeholder="Dibs description..."></input>
                     </div>
