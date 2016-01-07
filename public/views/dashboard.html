@@ -59,7 +59,9 @@
             <input type="checkbox" ng-model="eve.eventAlert"><span id="alert-roommates-padding">Please Alert Roommates</span></input>
           </div>
           <button class="submit-btn" type="submit" ng-click="eventSubmit()">Set Room Dibs!!!</button>
+
           <button class="submit-btn" type="submit" ng-click="addToGoogleCal()">add to Google Calendar</button>
+          <br>
           <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
             {{alert.msg}}
             <a href={{alert.url}} target="_blank">here</a>

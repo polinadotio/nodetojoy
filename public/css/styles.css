@@ -80,9 +80,7 @@ h3 {
     padding: 0.25em 0.9em 0.75em 0.9em;
 }
 
-#logout-btn:hover {
-    background: #CF2A00 !important;
-}
+
 
 .sideBar {
     background-color: #f7f7f9;
@@ -152,9 +150,6 @@ h3 {
     padding: 0.78em 0.9em 0.75em 0.9em;
 }
 
-.submit-btn:hover {
-    background: #CF2A00 !important;
-}
 
 .btn-primary {
     background: #278D8E !important;
