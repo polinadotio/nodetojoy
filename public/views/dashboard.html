@@ -1,7 +1,7 @@
 <!-- navbar -->
 <div id="nav-container">
   <div class="container">
-    <button type="button" class="btn btn-default navbar-btn navbar-right" ng-click="ifValue=!ifValue">Switch View</button>
+    <button type="button" id="logo-image" class="btn btn-default navbar-btn navbar-right" ng-click="ifValue=!ifValue">Switch View</button>
     <img id="logo-image" src="./css/dibs3.png" alt="Dibs Logo">
   </div>
 </div>
@@ -48,10 +48,11 @@
             <input class="standardInputStyling" ng-model="eve.eventDescription" placeholder="Dibs description..."></input>
           </div>
           <h4>Pick a room</h4>
-          <div class="btn-group">
-            <label class="btn btn-success room-btn" ng-model="eve.roomName" uib-btn-radio="'Kitchen'" uncheckable>Kitchen</label>
-            <label class="btn btn-success room-btn" ng-model="eve.roomName" uib-btn-radio="'Living Room'" uncheckable>Living Room</label>
-            <label class="btn btn-success room-btn" ng-model="eve.roomName" uib-btn-radio="'Entire House'" uncheckable>Entire House</label>
+
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default" ng-model="eve.roomName" uib-btn-radio="'Kitchen'">Kitchen</button>
+            <button type="button" class="btn btn-default" ng-model="eve.roomName" uib-btn-radio="'Living Room'">Living Room</button>
+            <button type="button" class="btn btn-default" ng-model="eve.roomName" uib-btn-radio="'Entire House'">Entire House</button>
           </div>
           <div>
             <h4>Alert Roommates</h4>
@@ -68,11 +69,12 @@
     <div class="col-md-6" class="bs-callout bs-callout-warning" ng-if="hideIf()" ng-init="renderSideDashboardChart2()" ui-view>
       <!--9 make it for now that each event saved is displayed to this view  -->
     </div>
-    <button ng-click="getEventDataButton()">test button</button>
+    
+    <button ng-click="getEventDataButton()">test button</button> 
   </div>
 </div>
 <!-- footer -->
-<div class="navbar navbar-fixed-bottom" role="footer" style="background-color: #f7f7f9">
+<div class="navbar navbar-fixed-bottom" role="footer">
   <div class="container">
     <p id="copyright-text">© 2016 Dibs</p>
     <button id="logout-btn" type="submit" ng-click="signout()">Logout</button>
