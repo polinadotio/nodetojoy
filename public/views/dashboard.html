@@ -1,11 +1,8 @@
 <!-- navbar -->
 <div id="nav-container">
   <div class="container">
-    <div id='logo-image' class=" navbar-left">
-      <p id="nav-google-text"><img class='circle' src='{{ user_profile.profile_picture }}'></img> Hello, {{ user_profile.user_name }}
-      </p>
-    </div>
-    <button type="button" id="logo-image" class="btn btn-default navbar-btn navbar-right" ng-click="ifValue=!ifValue">Switch View</button>
+    <button type="button" type="submit" id="logo-image" class="btn btn-default navbar-btn navbar-right" ng-click="signout()">Logout</button>
+    
     <img id="logo-image" src="./css/dibs3.png" alt="Dibs Logo">
   </div>
 </div>
@@ -74,20 +71,24 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6" class="bs-callout bs-callout-info" ng-if="showIf()" ng-init="renderSideDashboard()" ui-view>
-      <!--9 make it for now that each event saved is displayed to this view  -->
+    <div class="col-md-6">
+      <div class="bs-callout bs-callout-info" ng-if="showIf()" ng-init="renderSideDashboard()" ui-view>
+        <!--9 make it for now that each event saved is displayed to this view  -->
+      </div>
+      <div class="bs-callout bs-callout-warning" ng-if="hideIf()" ng-init="renderSideDashboardChart2()" ui-view>
+        <!--9 make it for now that each event saved is displayed to this view  -->
+
+      </div>
+      <button type="button" class="btn btn-default" type="submit" ng-click="ifValue=!ifValue">Switch View</button>
+      <button type="button" class="btn btn-default" ng-click="getEventDataButton()">test button</button> 
     </div>
-    <div class="col-md-6" class="bs-callout bs-callout-warning" ng-if="hideIf()" ng-init="renderSideDashboardChart2()" ui-view>
-      <!--9 make it for now that each event saved is displayed to this view  -->
-    </div>
-    
-    <button ng-click="getEventDataButton()">test button</button> 
+  
   </div>
 </div>
 <!-- footer -->
 <div class="navbar navbar-fixed-bottom" role="footer">
   <div class="container">
     <p id="copyright-text">© 2016 Dibs</p>
-    <button id="logout-btn" type="submit" ng-click="signout()">Logout</button>
+    
   </div>
 </div>
