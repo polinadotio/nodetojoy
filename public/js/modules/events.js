@@ -100,6 +100,19 @@ angular.module('eventsInfo', [])
       $scope.renderSideDashboard();
     };
 
+    $scope.addToGoogleCal = function() {
+      // console.log("hey now",$scope.eve);
+      return $http({
+        method: 'POST',
+        url: '/api/events/googlecal',
+        data: {
+          event: $scope.eve
+        }
+      }).then(function(response) {
+        console.log("created google calendar event", response);
+      });
+    };
+
     $scope.signout = function() {
       //remove jwt here
       //and remove passport session
