@@ -15,16 +15,16 @@
           <div class="input-group">
             <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="eve.eventDate" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
             <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
+              <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
           </div>
           <!-- Angular datePicker End (start date)-->
           <!-- Angular datePicker (end date)-->
           <div class="input-group">
             <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="eve.eventEndDate" is-open="status.opened2" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
             <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
+              <button type="button" class="btn btn-default" ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
           </div>
           <!-- Angular datePicker End (end date)-->
           <!-- Angular TimePicker (start time)-->
@@ -61,7 +61,7 @@
           <button class="submit-btn" type="submit" ng-click="eventSubmit()">Set Room Dibs!!!</button>
 
           <button class="submit-btn" type="submit" ng-click="addToGoogleCal()">add to Google Calendar</button>
-          <br>
+
           <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
             {{alert.msg}}
             <a href={{alert.url}} target="_blank">here</a>
