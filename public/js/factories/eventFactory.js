@@ -22,12 +22,19 @@ angular.module('eventsInfoFactory', [])
       });
     };
 
+    var getAllData = function() {
+      return $http({
+        method: 'GET',
+        url: '/api/events/allevents'
+      });
+    };
+
     var formatData = function(events) {
       var eventsCollection = events.data,
         eventDates,
         formattedDate,
         eventTimes;
-        console.log("FORMAT DATA IN EVENTFACTORY.JS",events);
+      console.log("FORMAT DATA IN EVENTFACTORY.JS", events);
 
       eventsCollection.forEach(function(event) {
         eventDates = event.eventDate;
@@ -43,9 +50,12 @@ angular.module('eventsInfoFactory', [])
       return eventsCollection;
     };
 
+    var getAllEventData;
+
     return {
       eventData: eventData,
       getData: getData,
-      formatData: formatData
+      formatData: formatData,
+      getAllData: getAllData
     };
   });
