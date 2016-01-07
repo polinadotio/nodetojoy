@@ -1,4 +1,4 @@
-angular.module('eventsInfo', [])
+angular.module('eventsInfo', ['ui.bootstrap'])
   .constant('moment', moment)
   .controller('eventsController', function($scope, $state, Eventstored, moment, $interval, $window, $http) {
     $scope.eve = {};
@@ -11,6 +11,17 @@ angular.module('eventsInfo', [])
     $scope.eve.roomName = '';
     $scope.eve.user = 'SimonTestForBrandon';
     $scope.eve.houseName = 'Hacker House';
+
+    //an alert is created when an event is pushed to Google Calendar
+    $scope.alerts = [];
+
+    $scope.closeAlert = function(index) {
+      $scope.alerts.splice(index, 1);
+    };
+
+    $scope.addAlert = function(alert) {
+      $scope.alerts.push(alert);
+    };
 
     $scope.ifValue = true;
     $scope.showIf = function() {
@@ -95,6 +106,25 @@ angular.module('eventsInfo', [])
       $scope.renderSideDashboard();
       $scope.refreshAllEvents();
       $scope.renderSideDashboardChart();
+    };
+
+    $scope.addToGoogleCal = function() {
+      // console.log("hey now",$scope.eve);
+      return $http({
+        method: 'POST',
+        url: '/api/events/googlecal',
+        data: {
+          event: $scope.eve
+        }
+      }).then(function(response) {
+        console.log("created google calendar event", response);
+        var successMessage = "Successfully added to Google Calendar! View the event "
+        $scope.addAlert({
+          type: 'success',
+          msg: successMessage,
+          url: response.data
+        });
+      });
     };
 
     $scope.signout = function() {
@@ -240,7 +270,7 @@ angular.module('eventsInfo', [])
 
     $scope.getEventDataButton = function() {
       Eventstored.getAllData().then(function(events) {
-        var formattedEvents = Eventstored.formatData(events);
+        var formattedEvents = Eventstored.formatAllData(events);
         console.log(formattedEvents);
       });
     };
@@ -259,13 +289,13 @@ angular.module('eventsInfo', [])
           allEvents[i].diff = diff;
           //console.log('This is the flag', diff);
         }
-        var formattedEvents = Eventstored.formatData(events);
+        var formattedEvents = Eventstored.formatAllData(events);
         $scope.bookedEvents = formattedEvents;
       });
     };
 
     $scope.renderSideDashboardChart = function() {
-      
+
       Eventstored.getAllData().then(function successCallback(events) {
         var allEvents = events.data;
         //console.log(allEvents);
@@ -277,7 +307,7 @@ angular.module('eventsInfo', [])
           allEvents[i].diff = diff;
           //console.log('This is the flag', diff);
         }
-        var formattedEvents = Eventstored.formatData(events);
+        var formattedEvents = Eventstored.formatAllData(events);
         // $scope.bookedEvents = formattedEvents;
       }, function errorCallback(response) {
 
@@ -295,9 +325,9 @@ angular.module('eventsInfo', [])
       //$scope.refreshEvents();
     };
 
-    $scope.renderSideDashboardChart2 = function () {
+    $scope.renderSideDashboardChart2 = function() {
       $state.go('dashboardPage.eventsChart');
-    }
+    };
 
- 
+
   });
