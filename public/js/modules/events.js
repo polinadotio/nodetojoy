@@ -11,6 +11,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
     $scope.eve.roomName = '';
     $scope.eve.user = 'SimonTestForBrandon';
     $scope.eve.houseName = 'Hacker House';
+    $scope.user_profile = '';
 
     //an alert is created when an event is pushed to Google Calendar
     $scope.alerts = [];
@@ -118,7 +119,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
         }
       }).then(function(response) {
         console.log("created google calendar event", response);
-        var successMessage = "Successfully added to Google Calendar! View the event "
+        var successMessage = "Successfully added to Google Calendar! View the event ";
         $scope.addAlert({
           type: 'success',
           msg: successMessage,
@@ -154,9 +155,15 @@ angular.module('eventsInfo', ['ui.bootstrap'])
         url: '/api/events/user'
       }).then(function successCallback(response) {
         // this callback will be called asynchronously
-        console.log("getting user info");
+
         $scope.eve.user = response.data.profile._json.displayName;
-        console.log(response.data.profile._json.displayName);
+
+        var profile = {
+          user_name: response.data.profile._json.displayName,
+          profile_picture: response.data.profile.photos[0].value
+        };
+
+        $scope.user_profile = profile;
         // when the response is available
       }, function errorCallback(response) {
         // called asynchronously if an error occurs
