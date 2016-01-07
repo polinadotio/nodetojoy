@@ -33,7 +33,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
 
     $scope.refreshEvents = function() {
       Eventstored.getData().then(function(events) {
-        
+
 
         var allEvents = events.data;
         //console.log(allEvents);
@@ -65,26 +65,21 @@ angular.module('eventsInfo', ['ui.bootstrap'])
         }
         var formattedEvents = Eventstored.formatData(events);
         $scope.bookedEvents = formattedEvents;
-      },function errorCallback(response) {
+      }, function errorCallback(response) {
 
         //do not have access to events resource
         //user must not be logged in
         //redirect to signup
 
         $state.go('signupPage');
-        
-        console.log("RESPONSE",response);
+
+        console.log("RESPONSE", response);
 
       });
 
       // removing past daily dibs every 30s
       //$scope.refreshEvents();
     };
-
-    $scope.renderSideDashboardChart = function() {
-      $state.go('dashboardPage.eventsChart');
-    };
-
 
     $scope.highlightEvents = function(event) {
       //console.log('test', event.diff);
@@ -109,6 +104,8 @@ angular.module('eventsInfo', ['ui.bootstrap'])
       // Eventstored.getData();
       $scope.refreshEvents();
       $scope.renderSideDashboard();
+      $scope.refreshAllEvents();
+      $scope.renderSideDashboardChart();
     };
 
     $scope.addToGoogleCal = function() {
@@ -133,17 +130,17 @@ angular.module('eventsInfo', ['ui.bootstrap'])
         method: 'GET',
         url: '/logout'
       }).then(function successCallback(response) {
-          // this callback will be called asynchronously
-          console.log("I'm signing out");
-          $window.localStorage.clear();
-          $state.go('signupPage');
-          // when the response is available
-        }, function errorCallback(response) {
-          // called asynchronously if an error occurs
-          // or server returns response with an error status.
-        });
+        // this callback will be called asynchronously
+        console.log("I'm signing out");
+        $window.localStorage.clear();
+        $state.go('signupPage');
+        // when the response is available
+      }, function errorCallback(response) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+      });
 
-      };
+    };
 
     $scope.getUserInfo = function() {
       //remove jwt here
@@ -152,15 +149,15 @@ angular.module('eventsInfo', ['ui.bootstrap'])
         method: 'GET',
         url: '/api/events/user'
       }).then(function successCallback(response) {
-          // this callback will be called asynchronously
-          console.log("getting user info");
-          $scope.eve.user = response.data.profile._json.displayName;
-          console.log(response.data.profile._json.displayName);
-          // when the response is available
-        }, function errorCallback(response) {
-          // called asynchronously if an error occurs
-          // or server returns response with an error status.
-        });
+        // this callback will be called asynchronously
+        console.log("getting user info");
+        $scope.eve.user = response.data.profile._json.displayName;
+        console.log(response.data.profile._json.displayName);
+        // when the response is available
+      }, function errorCallback(response) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+      });
 
     };
 
@@ -218,6 +215,10 @@ angular.module('eventsInfo', ['ui.bootstrap'])
       $scope.status.opened = true;
     };
 
+    $scope.openEnd = function($event) {
+      $scope.status.opened2 = true;
+    };
+
     $scope.setDate = function(year, month, day) {
       $scope.eve.eventDate = new Date(year, month, day);
     };
@@ -232,6 +233,10 @@ angular.module('eventsInfo', ['ui.bootstrap'])
 
     $scope.status = {
       opened: false
+    };
+
+    $scope.status2 = {
+      opened2: false
     };
 
     var tomorrow = new Date();
@@ -259,11 +264,66 @@ angular.module('eventsInfo', ['ui.bootstrap'])
       return '';
     };
 
-    $scope.getEventDataButton =  function() {
-      Eventstored.getData().then(function(events) {
+    $scope.getEventDataButton = function() {
+      Eventstored.getAllData().then(function(events) {
         var formattedEvents = Eventstored.formatData(events);
         console.log(formattedEvents);
       });
-  
     };
+
+    $scope.refreshAllEvents = function() {
+      Eventstored.getAllData().then(function(events) {
+
+
+        var allEvents = events.data;
+        //console.log(allEvents);
+        var today = moment().dayOfYear();
+
+        for (var i = 0; i < allEvents.length; i++) {
+          var eachDib = moment(allEvents[i].eventDate).dayOfYear();
+          var diff = eachDib - today;
+          allEvents[i].diff = diff;
+          //console.log('This is the flag', diff);
+        }
+        var formattedEvents = Eventstored.formatData(events);
+        $scope.bookedEvents = formattedEvents;
+      });
+    };
+
+    $scope.renderSideDashboardChart = function() {
+      
+      Eventstored.getAllData().then(function successCallback(events) {
+        var allEvents = events.data;
+        //console.log(allEvents);
+        var today = moment().dayOfYear();
+
+        for (var i = 0; i < allEvents.length; i++) {
+          var eachDib = moment(allEvents[i].eventDate).dayOfYear();
+          var diff = eachDib - today;
+          allEvents[i].diff = diff;
+          //console.log('This is the flag', diff);
+        }
+        var formattedEvents = Eventstored.formatData(events);
+        // $scope.bookedEvents = formattedEvents;
+      }, function errorCallback(response) {
+
+        //do not have access to events resource
+        //user must not be logged in
+        //redirect to signup
+
+        $state.go('signupPage');
+
+        console.log("RESPONSE", response);
+
+      });
+
+      // removing past daily dibs every 30s
+      //$scope.refreshEvents();
+    };
+
+    $scope.renderSideDashboardChart2 = function () {
+      $state.go('dashboardPage.eventsChart');
+    }
+
+ 
   });

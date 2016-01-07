@@ -21,9 +21,9 @@
           <!-- Angular datePicker End (start date)-->
           <!-- Angular datePicker (end date)-->
           <div class="input-group">
-            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="eve.eventEndDate" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="eve.eventEndDate" is-open="status.opened2" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
             <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            <button type="button" class="btn btn-default" ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
           </div>
           <!-- Angular datePicker End (end date)-->
@@ -72,7 +72,7 @@
     <div class="col-md-6" class="bs-callout bs-callout-info" ng-if="showIf()" ng-init="renderSideDashboard()" ui-view>
       <!--9 make it for now that each event saved is displayed to this view  -->
     </div>
-    <div class="col-md-6" class="bs-callout bs-callout-warning" ng-if="hideIf()" ng-init="renderSideDashboardChart()" ui-view>
+    <div class="col-md-6" class="bs-callout bs-callout-warning" ng-if="hideIf()" ng-init="renderSideDashboardChart2()" ui-view>
       <!--9 make it for now that each event saved is displayed to this view  -->
     </div>
     <button ng-click="getEventDataButton()">test button</button>
