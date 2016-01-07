@@ -240,7 +240,7 @@ angular.module('eventsInfo', [])
 
     $scope.getEventDataButton = function() {
       Eventstored.getAllData().then(function(events) {
-        var formattedEvents = Eventstored.formatData(events);
+        var formattedEvents = Eventstored.formatAllData(events);
         console.log(formattedEvents);
       });
     };
@@ -259,7 +259,7 @@ angular.module('eventsInfo', [])
           allEvents[i].diff = diff;
           //console.log('This is the flag', diff);
         }
-        var formattedEvents = Eventstored.formatData(events);
+        var formattedEvents = Eventstored.formatAllData(events);
         $scope.bookedEvents = formattedEvents;
       });
     };
@@ -277,7 +277,7 @@ angular.module('eventsInfo', [])
           allEvents[i].diff = diff;
           //console.log('This is the flag', diff);
         }
-        var formattedEvents = Eventstored.formatData(events);
+        var formattedEvents = Eventstored.formatAllData(events);
         // $scope.bookedEvents = formattedEvents;
       }, function errorCallback(response) {
 

@@ -50,12 +50,40 @@ angular.module('eventsInfoFactory', [])
       return eventsCollection;
     };
 
-    var getAllEventData;
+    var formatAllData = function(events) {
+      var eventsCollection = events.data,
+        eventDates,
+        formattedDate,
+        eventTimes,
+        tasks = [];
+      // console.log("FORMATALLDATA IN EVENTFACTORY.JS", events);
+      // console.log("TEST");
+      eventsCollection.forEach(function(event) {
+        var task = {startDate:null, endDate:null, taskName:null, status:null};
+        console.log(event);
+        startDate = event.eventDate;
+        endDate = event.eventEndDate;
+        formattedDate = moment(startDate).format("ddd MMM D");
+        formattedTime = moment(startDate).format('H:mm:ss YYYY');
+        event.eventDate = formattedDate;
+        event.eventEndDate = moment(endDate).format("ddd MMM D");
+        event.eventTime = formattedTime;
+        event.eventEndTime = moment(endDate).format('H:mm:ss YYYY');
+        task.startDate = event.eventDate + " " + event.eventTime;
+        task.endDate = event.eventEndDate + " " + event.eventEndTime;
+        task.taskName = event.roomName;
+        task.status = event.user;
+        tasks.push(task);
+      });
+
+      return tasks;
+    };
 
     return {
       eventData: eventData,
       getData: getData,
       formatData: formatData,
-      getAllData: getAllData
+      getAllData: getAllData,
+      formatAllData: formatAllData
     };
   });
