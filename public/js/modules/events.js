@@ -119,6 +119,27 @@ angular.module('eventsInfo', [])
 
       };
 
+    $scope.getUserInfo = function() {
+      //remove jwt here
+      //and remove passport session
+      $http({
+        method: 'GET',
+        url: '/api/events/user'
+      }).then(function successCallback(response) {
+          // this callback will be called asynchronously
+          console.log("getting user info");
+          $scope.eve.user = response.data.profile._json.displayName;
+          console.log(response.data.profile._json.displayName);
+          // when the response is available
+        }, function errorCallback(response) {
+          // called asynchronously if an error occurs
+          // or server returns response with an error status.
+        });
+
+    };
+
+    $scope.getUserInfo();
+
     //TIME ADDON
     $scope.eve.eventDate = new Date();
     $scope.hstep = 1;
@@ -171,6 +192,10 @@ angular.module('eventsInfo', [])
       $scope.status.opened = true;
     };
 
+    $scope.openEnd = function($event) {
+      $scope.status.opened2 = true;
+    };
+
     $scope.setDate = function(year, month, day) {
       $scope.eve.eventDate = new Date(year, month, day);
     };
@@ -185,6 +210,10 @@ angular.module('eventsInfo', [])
 
     $scope.status = {
       opened: false
+    };
+
+    $scope.status2 = {
+      opened2: false
     };
 
     var tomorrow = new Date();

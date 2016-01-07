@@ -7,8 +7,8 @@ module.exports = {
     //checks if event already exists
     var token = req.headers["x-access-token"];
     console.log("ACCESS TOKEN", token);
-    console.log(req.session);
-    
+   
+
     eventModel.findOne({ 
       'eventDate': req.body.dibEvent.eventDate,
       'roomName': req.body.dibEvent.roomName
@@ -23,9 +23,15 @@ module.exports = {
     });
   },
 
+  getUser: function(req, res) {
+    res.json(req.user);
+  },
+
   getEvent: function(req,res) {
     var token = req.headers["x-access-token"];
     console.log("ACCESS TOKEN", token);
+     console.log("REQ SESSION",req.session);
+     console.log("REQ USER",req.user);
 
     eventModel.find({'eventDate' : { $gte : new Date()} })
       .sort({eventDate: 1})

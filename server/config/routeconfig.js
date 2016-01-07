@@ -9,8 +9,10 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 module.exports = function(app, express) {
   app.use(bodyParser.json());
   app.use(morgan('combined'));
-    //passport
-  app.use(session({secret: 'SECRET'}));
+  //passport
+  app.use(session({ secret: 'SECRET',
+                    cookie: { maxAge : 3600000 } //1 Hour
+                          }));
   app.use(passport.initialize());
   app.use(passport.session()); // persistent login sessions
   
@@ -54,9 +56,16 @@ module.exports = function(app, express) {
     function(accessToken, refreshToken, profile, done) {
 
       //create a user in the db
+      var user = {
+        accessToken : accessToken,
+        refreshToken : refreshToken,
+        profile : profile
+      };
 
       console.log("profile", profile);
-      return done(null, "was successful");
+
+      //this user object now lives in req.user
+      return done(null, user);
     }
   ));
 
