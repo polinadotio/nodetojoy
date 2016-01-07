@@ -171,6 +171,10 @@ angular.module('eventsInfo', [])
       $scope.status.opened = true;
     };
 
+    $scope.openEnd = function($event) {
+      $scope.status.opened2 = true;
+    };
+
     $scope.setDate = function(year, month, day) {
       $scope.eve.eventDate = new Date(year, month, day);
     };
@@ -185,6 +189,10 @@ angular.module('eventsInfo', [])
 
     $scope.status = {
       opened: false
+    };
+
+    $scope.status2 = {
+      opened2: false
     };
 
     var tomorrow = new Date();
