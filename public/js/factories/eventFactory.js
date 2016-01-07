@@ -65,7 +65,6 @@ angular.module('eventsInfoFactory', [])
           taskName: null,
           status: null
         };
-        console.log(event);
         startDate = event.eventDate;
         endDate = event.eventEndDate;
         formattedDate = moment(startDate).format("ddd MMM D");
