@@ -59,7 +59,12 @@ angular.module('eventsInfoFactory', [])
       // console.log("FORMATALLDATA IN EVENTFACTORY.JS", events);
       // console.log("TEST");
       eventsCollection.forEach(function(event) {
-        var task = {startDate:null, endDate:null, taskName:null, status:null};
+        var task = {
+          startDate: null,
+          endDate: null,
+          taskName: null,
+          status: null
+        };
         console.log(event);
         startDate = event.eventDate;
         endDate = event.eventEndDate;

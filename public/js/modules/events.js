@@ -119,7 +119,11 @@ angular.module('eventsInfo', ['ui.bootstrap'])
       }).then(function(response) {
         console.log("created google calendar event", response);
         var successMessage = "Successfully added to Google Calendar! View the event "
-        $scope.addAlert({type: 'success', msg: successMessage, url: response.data});
+        $scope.addAlert({
+          type: 'success',
+          msg: successMessage,
+          url: response.data
+        });
       });
     };
 
@@ -291,7 +295,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
     };
 
     $scope.renderSideDashboardChart = function() {
-      
+
       Eventstored.getAllData().then(function successCallback(events) {
         var allEvents = events.data;
         //console.log(allEvents);
@@ -321,9 +325,9 @@ angular.module('eventsInfo', ['ui.bootstrap'])
       //$scope.refreshEvents();
     };
 
-    $scope.renderSideDashboardChart2 = function () {
+    $scope.renderSideDashboardChart2 = function() {
       $state.go('dashboardPage.eventsChart');
     };
 
- 
+
   });
