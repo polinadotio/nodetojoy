@@ -119,7 +119,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
         }
       }).then(function(response) {
         console.log("created google calendar event", response);
-        var successMessage = "Successfully added to Google Calendar! View the event "
+        var successMessage = "Successfully added to Google Calendar! View the event ";
         $scope.addAlert({
           type: 'success',
           msg: successMessage,
@@ -161,7 +161,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
         var profile = {
           user_name: response.data.profile._json.displayName,
           profile_picture: response.data.profile.photos[0].value
-        }
+        };
 
         $scope.user_profile = profile;
         // when the response is available
