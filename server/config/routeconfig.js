@@ -60,7 +60,7 @@ module.exports = function(app, express) {
         accessToken : accessToken,
         refreshToken : refreshToken,
         profile : profile
-      }
+      };
 
       console.log("profile", profile);
 
