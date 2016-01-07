@@ -19,6 +19,7 @@ module.exports = function(app, express) {
   });
 
   passport.deserializeUser(function(obj, done) {
+
     done(null, obj);
   });
 
@@ -53,6 +54,7 @@ module.exports = function(app, express) {
     function(accessToken, refreshToken, profile, done) {
 
       //create a user in the db
+
       console.log("profile", profile);
       return done(null, "was successful");
     }
