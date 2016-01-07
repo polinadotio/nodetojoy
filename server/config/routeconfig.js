@@ -54,9 +54,16 @@ module.exports = function(app, express) {
     function(accessToken, refreshToken, profile, done) {
 
       //create a user in the db
+      var user = {
+        accessToken : accessToken,
+        refreshToken : refreshToken,
+        profile : profile
+      }
 
       console.log("profile", profile);
-      return done(null, "was successful");
+
+      //this user object now lives in req.user
+      return done(null, user);
     }
   ));
 
