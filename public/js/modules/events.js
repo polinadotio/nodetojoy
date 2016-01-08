@@ -286,13 +286,18 @@ angular.module('eventsInfo', ['ui.bootstrap'])
       return '';
     };
 
-    $scope.getEventDataButton = function() {
+    $scope.getEventData = function() {
       Eventstored.getAllData().then(function(events) {
         var formattedEvents = Eventstored.formatAllData(events);
         console.log(formattedEvents);
         GLOBALVAR = formattedEvents;
       });
     };
+
+    $scope.switchButton = function() {
+      $scope.ifValue = !$scope.ifValue;
+      $scope.getEventData();
+    }
 
     $scope.refreshAllEvents = function() {
       Eventstored.getAllData().then(function(events) {
@@ -348,5 +353,5 @@ angular.module('eventsInfo', ['ui.bootstrap'])
       $state.go('dashboardPage.eventsChart');
     };
 
-    $scope.getEventDataButton();
+    $scope.getEventData();
   });
