@@ -9,7 +9,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
     $scope.eve.eventTime = '';
     $scope.eve.eventEndTime = '';
     $scope.eve.roomName = '';
-    $scope.eve.user = 'SimonTestForBrandon';
+    $scope.eve.user = 'Test';
     $scope.eve.houseName = 'Hacker House';
     $scope.user_profile = '';
 
@@ -286,13 +286,18 @@ angular.module('eventsInfo', ['ui.bootstrap'])
       return '';
     };
 
-    $scope.getEventDataButton = function() {
+    $scope.getEventData = function() {
       Eventstored.getAllData().then(function(events) {
         var formattedEvents = Eventstored.formatAllData(events);
         console.log(formattedEvents);
         GLOBALVAR = formattedEvents;
       });
     };
+
+    $scope.switchButton = function() {
+      $scope.ifValue = !$scope.ifValue;
+      $scope.getEventData();
+    }
 
     $scope.refreshAllEvents = function() {
       Eventstored.getAllData().then(function(events) {
@@ -348,5 +353,5 @@ angular.module('eventsInfo', ['ui.bootstrap'])
       $state.go('dashboardPage.eventsChart');
     };
 
-
+    $scope.getEventData();
   });
