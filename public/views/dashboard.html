@@ -85,18 +85,16 @@
                     <button type="button" class="btn btn-default" ng-model="eve.roomName" uib-btn-radio="'Observatory'">Observatory</button>
                   </div>
 
-                  <h4>Event Blurb</h4>
+                  <h4>Event Description</h4>
                   <div>
-                    <input class="standardInputStyling" ng-model="eve.eventDescription" placeholder="Your Dibs..."></input>
+                    <input class="standardInputStyling" ng-model="eve.eventDescription" placeholder="Your event blurb...!"></input>
                   </div>
 
                 <div>
-                  <input type="checkbox" ng-model="eve.eventAlert"> <span id="alert-roommates-padding">Add to Google Calendar (doesn't work right now)</span></input>
+                  <input type="checkbox" ng-model="googleCalCheckBox" ng-change="googleCalBox()"> <span id="alert-roommates-padding">Add to Google Calendar</span></input>
                 </div>
 
                   <button class="submit-btn" type="submit" ng-click="eventSubmit()">Set Room Dibs!!!</button>
-
-                  <button class="submit-btn" type="submit" ng-click="addToGoogleCal()">add to Google Calendar</button>
 
                   <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
                     {{alert.msg}}
