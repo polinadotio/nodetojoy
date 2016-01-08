@@ -280,6 +280,7 @@ function example() {
     }
   };
 
+  // Think about where to populateTask().  Maybe when you click the switch view button.
   populateTasks(GLOBALVAR);
 
   var taskStatus = {
