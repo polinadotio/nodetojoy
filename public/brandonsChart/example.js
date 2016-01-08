@@ -5,9 +5,9 @@ d3.gantt = function() {
   var FIXED_TIME_DOMAIN_MODE = "fixed";
 
   var margin = {
-    top: 50,
+    top: 10,
     right: 0,
-    bottom: 0,
+    bottom: 30,
     left: 75
   };
   var selector = '#brandonChart';

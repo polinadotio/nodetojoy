@@ -9,7 +9,7 @@ angular.module('dibs.events', ['ui.bootstrap'])
     $scope.eve.eventTime = '';
     $scope.eve.eventEndTime = '';
     $scope.eve.roomName = '';
-    $scope.eve.user = 'SimonTestForBrandon';
+    $scope.eve.user = 'Test';
     $scope.eve.houseName = 'Hacker House';
     $scope.user_profile = '';
 
@@ -258,13 +258,17 @@ angular.module('dibs.events', ['ui.bootstrap'])
       return '';
     };
 
-    $scope.getEventDataButton = function() {
-      eventModel.getAllData().then(function(events) {
-        var formattedEvents = eventModel.formatAllData(events);
-        console.log(formattedEvents);
+    $scope.getEventData = function() {
+      Eventstored.getAllData().then(function(events) {
+        var formattedEvents = Eventstored.formatAllData(events);
         GLOBALVAR = formattedEvents;
       });
     };
+
+    $scope.switchButton = function() {
+      $scope.ifValue = !$scope.ifValue;
+      $scope.getEventData();
+    }
 
     $scope.refreshAllEvents = function() {
       eventModel.getAllData().then(function(events) {
@@ -320,5 +324,5 @@ angular.module('dibs.events', ['ui.bootstrap'])
       $state.go('dashboardPage.eventsChart');
     };
 
-    $scope.getEventDataButton();
+    $scope.getEventData();
   });

@@ -75,7 +75,7 @@ angular.module('eventsInfoFactory', [])
         event.eventEndTime = moment(endDate).format('H:mm:ss YYYY');
         task.startDate = event.eventDate + " " + event.eventTime;
         task.endDate = event.eventEndDate + " " + event.eventEndTime;
-        task.taskName = event.roomName;
+        task.taskName = event.roomName || 'Entire House' ;
         task.status = event.user;
         tasks.push(task);
       });
