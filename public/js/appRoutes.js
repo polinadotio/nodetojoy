@@ -3,7 +3,7 @@ angular.module('dibs', [
   'ngAnimate', 
   'ui.bootstrap', 
   'ui.router', 
-  'eventsInfo', 
+  'dibs.events', 
   'eventsInfoFactory', 
   'userInfo', 
   'userFactory', 
