@@ -24,4 +24,4 @@ exports.sendMail = function(receiverEmail, eventURL) {
       }
       console.log('Message sent: ' + info.response + '\n');
   });
-}
+};
