@@ -289,6 +289,7 @@ function example() {
     "Polina": "bar-killed",
     "Kevin Van": "bar",
     "Simon Ding": "bar-failed"
+    // must add all new database usernames to here.  the values represent a css color.
   };
 
   var taskNames = ["Kitchen", "Living Room", "Entire House"];
