@@ -9,7 +9,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
     $scope.eve.eventTime = '';
     $scope.eve.eventEndTime = '';
     $scope.eve.roomName = '';
-    $scope.eve.user = 'SimonTestForBrandon';
+    $scope.eve.user = 'Test';
     $scope.eve.houseName = 'Hacker House';
     $scope.user_profile = '';
 
