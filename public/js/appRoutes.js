@@ -36,7 +36,7 @@ angular.module('dibs', [
         url: '/eventsChart',
         templateUrl: 'views/eventChart.html',
         controller: 'eventsController'
-      })
+      });
   })
 
 .run(function($state, $rootScope) {

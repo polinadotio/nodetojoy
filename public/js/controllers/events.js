@@ -12,7 +12,7 @@ angular.module('dibs.dashboard', ['ui.bootstrap'])
       roomName: '',
       user: '',
       houseName: 'Hacker House' //never changes
-    }
+    };
 
     $scope.user_profile = '';
     $scope.alerts = [];
@@ -112,7 +112,7 @@ angular.module('dibs.dashboard', ['ui.bootstrap'])
                         url: response.data
                       });                      
                     });
-    }
+    };
 
     $scope.signout = function() {
       $http({
@@ -253,7 +253,7 @@ angular.module('dibs.dashboard', ['ui.bootstrap'])
     $scope.switchButton = function() {
       $scope.ifValue = !$scope.ifValue;
       $scope.getEventData();
-    }
+    };
 
     $scope.refreshAllEvents = function() {
       eventModel.getAllData().then(function(events) {
