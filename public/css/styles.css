@@ -227,3 +227,14 @@ video {
     background-color: #382454;
     border-color:#1A0F29;
 }
+
+
+.btn-success {
+   background-color: #80BB80;
+}
+
+.btn-success:hover {
+    color: #fff;
+    background-color: #4cae4c;
+    border-color: #4cae4c;
+}
