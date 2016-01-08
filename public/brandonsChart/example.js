@@ -16,8 +16,8 @@ d3.gantt = function() {
   var timeDomainMode = FIT_TIME_DOMAIN_MODE; // fixed or fit
   var taskTypes = [];
   var taskStatus = [];
-  var height = 300 /*document.body.clientHeight - margin.top - margin.bottom - 5;*/
-  var width = 400 /*document.body.clientWidth - margin.right - margin.left - 5;*/
+  var height = $('#events-sidebar.panel.panel-default').height() - 50; /*document.body.clientHeight - margin.top - margin.bottom - 5;*/
+  var width = $('#events-sidebar.panel.panel-default').width() - 100; /*document.body.clientWidth - margin.right - margin.left - 5;*/
 
   var tickFormat = "%H:%M";
 
@@ -34,7 +34,7 @@ d3.gantt = function() {
   var y = d3.scale.ordinal().domain(taskTypes).rangeRoundBands([0, height - margin.top - margin.bottom], .1);
 
   var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(d3.time.format(tickFormat)).tickSubdivide(true)
-    .tickSize(8).tickPadding(8);
+    .tickSize(8).tickPadding(8).ticks(8);
 
   var yAxis = d3.svg.axis().scale(y).orient("left").tickSize(0);
 
@@ -60,7 +60,7 @@ d3.gantt = function() {
     x = d3.time.scale().domain([timeDomainStart, timeDomainEnd]).range([0, width]).clamp(true);
     y = d3.scale.ordinal().domain(taskTypes).rangeRoundBands([0, height - margin.top - margin.bottom], .1);
     xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(d3.time.format(tickFormat)).tickSubdivide(true)
-      .tickSize(8).tickPadding(8);
+      .tickSize(8).tickPadding(8).ticks(8);
 
     yAxis = d3.svg.axis().scale(y).orient("left").tickSize(0);
   };
@@ -233,47 +233,65 @@ d3.gantt = function() {
   return gantt;
 };
 
-
 example();
 
-
 function example() {
+  $('#brandonChart').empty();
+  // var tasks = [{
+  //   "startDate": new Date("Sun Dec 09 01:36:45 2012"),
+  //   "endDate": new Date("Sun Dec 09 02:36:45 2012"),
+  //   "taskName": "Kitchen",
+  //   "status": "Brandon"
+  // }, {
+  //   "startDate": new Date("Sun Dec 09 04:56:32 2012"),
+  //   "endDate": new Date("Sun Dec 09 06:35:47 2012"),
+  //   "taskName": "Kitchen",
+  //   "status": "Brandon"
+  // }, {
+  //   "startDate": new Date("Sun Dec 09 01:29:53 2012"),
+  //   "endDate": new Date("Sun Dec 09 06:34:04 2012"),
+  //   "taskName": "LivingRoom",
+  //   "status": "Geetha"
+  // }, {
+  //   "startDate": new Date("Sun Dec 09 01:29:53 2012"),
+  //   "endDate": new Date("Sun Dec 09 06:34:04 2012"),
+  //   "taskName": "WholeHouse",
+  //   "status": "Polina"
+  // }, {
+  //   "startDate": new Date("Sat Dec 08 23:12:24 2012"),
+  //   "endDate": new Date("Sun Dec 09 00:26:13 2012"),
+  //   "taskName": "WholeHouse",
+  //   "status": "Kevin"
+  // }];
 
-  var tasks = [{
-    "startDate": new Date("Sun Dec 09 01:36:45 EST 2012"),
-    "endDate": new Date("Sun Dec 09 02:36:45 EST 2012"),
-    "taskName": "Kitchen",
-    "status": "Brandon"
-  }, {
-    "startDate": new Date("Sun Dec 09 04:56:32 EST 2012"),
-    "endDate": new Date("Sun Dec 09 06:35:47 EST 2012"),
-    "taskName": "Kitchen",
-    "status": "Brandon"
-  }, {
-    "startDate": new Date("Sun Dec 09 01:29:53 EST 2012"),
-    "endDate": new Date("Sun Dec 09 06:34:04 EST 2012"),
-    "taskName": "LivingRoom",
-    "status": "Geetha"
-  }, {
-    "startDate": new Date("Sun Dec 09 01:29:53 EST 2012"),
-    "endDate": new Date("Sun Dec 09 06:34:04 EST 2012"),
-    "taskName": "WholeHouse",
-    "status": "Polina"
-  }, {
-    "startDate": new Date("Sat Dec 08 23:12:24 EST 2012"),
-    "endDate": new Date("Sun Dec 09 00:26:13 EST 2012"),
-    "taskName": "WholeHouse",
-    "status": "Kevin"
-  }];
+  var tasks = [];
+
+  var populateTasks = function(formattedArr) {
+    for (var i = 0; i < formattedArr.length; i++) {
+      console.log('FORMATTED ARR', formattedArr[i]);
+      tasks.push({
+        startDate: new Date(formattedArr[i].startDate),
+        endDate: new Date(formattedArr[i].endDate),
+        taskName: formattedArr[i].taskName,
+        status: formattedArr[i].status
+      })
+    }
+  };
+
+  // Think about where to populateTask().  Maybe when you click the switch view button.
+  populateTasks(GLOBALVAR);
 
   var taskStatus = {
     "Brandon": "bar",
     "Geetha": "bar-failed",
     "Kevin": "bar-running",
-    "Polina": "bar-killed"
+    "Polina": "bar-killed",
+    "Kevin Van": "bar",
+    "Simon Ding": "bar-failed"
+    // must add all new database usernames to here.  the values represent a css color.
   };
 
-  var taskNames = ["Kitchen", "LivingRoom", "WholeHouse"];
+  var taskNames = ["Kitchen", "Living Room", "Entire House"];
 
   tasks.sort(function(a, b) {
     return a.endDate - b.endDate;
@@ -284,9 +302,13 @@ function example() {
   });
   var minDate = tasks[0].startDate;
 
-  var format = "%H:%M";
+  var format = "%m/%e";
 
   var gantt = d3.gantt().taskTypes(taskNames).taskStatus(taskStatus).tickFormat(format);
   gantt(tasks);
 
 };
+
+d3.select(window).on('resize', function() {
+  example();
+});
