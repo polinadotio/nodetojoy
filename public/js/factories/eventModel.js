@@ -1,4 +1,4 @@
-angular.module('eventsInfoFactory', [])
+angular.module('dibs.events', [])
   .factory('eventModel', function($http) {
     //posts events to database
     var eventData = function(dibEvent) {

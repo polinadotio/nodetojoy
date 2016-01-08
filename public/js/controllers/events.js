@@ -1,4 +1,4 @@
-angular.module('dibs.events', ['ui.bootstrap'])
+angular.module('dibs.dashboard', ['ui.bootstrap'])
   .constant('moment', moment)
   .controller('eventsController', function($scope, $state, eventModel, googleCalModel, moment, $interval, $window, $http) {
 
@@ -115,8 +115,6 @@ angular.module('dibs.events', ['ui.bootstrap'])
     }
 
     $scope.signout = function() {
-      //remove jwt here
-      //and remove passport session
       $http({
         method: 'GET',
         url: '/logout'
@@ -125,12 +123,7 @@ angular.module('dibs.events', ['ui.bootstrap'])
         console.log("I'm signing out");
         $window.localStorage.clear();
         $state.go('signupPage');
-        // when the response is available
-      }, function errorCallback(response) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
       });
-
     };
 
     $scope.getUserInfo = function() {
