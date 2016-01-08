@@ -8,7 +8,7 @@ module.exports.restrict = function(req, res, next) {
       return next();
     }
     res.redirect('/failure');
-}
+};
 
 module.exports.initialize = function(app) {
   app.use(cookieParser());
@@ -52,4 +52,4 @@ module.exports.initialize = function(app) {
       });
     }
   )); 
-}
+};

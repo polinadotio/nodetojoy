@@ -38,4 +38,4 @@ module.exports = function(app, express) {
   require(__dirname + '/../auth/authRoutes.js')(authRouter);
   require(__dirname + '/../users/userRoutes.js')(userRouter);
   require(__dirname + '/../events/eventRoutes.js')(eventRouter);
-}
+};
