@@ -17,8 +17,8 @@ d3.gantt = function() {
   var col = d3.scale.category10();
   var taskTypes = [];
   var taskStatus = [];
-  var height = 300 /*document.body.clientHeight - margin.top - margin.bottom - 5;*/
-  var width = 400 /*document.body.clientWidth - margin.right - margin.left - 5;*/
+  var height = $('#events-sidebar.panel.panel-default').height() - 50; /*document.body.clientHeight - margin.top - margin.bottom - 5;*/
+  var width = $('#events-sidebar.panel.panel-default').width() - 100; /*document.body.clientWidth - margin.right - margin.left - 5;*/
 
   var tickFormat = "%H:%M";
 
@@ -236,12 +236,10 @@ d3.gantt = function() {
   return gantt;
 };
 
-
 example();
 
-
 function example() {
-
+  $('#brandonChart').empty();
   // var tasks = [{
   //   "startDate": new Date("Sun Dec 09 01:36:45 2012"),
   //   "endDate": new Date("Sun Dec 09 02:36:45 2012"),
@@ -313,3 +311,7 @@ function example() {
   gantt(tasks);
 
 };
+
+d3.select(window).on('resize', function() {
+  example();
+});
