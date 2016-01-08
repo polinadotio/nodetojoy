@@ -31,6 +31,12 @@ angular.module('eventsInfo', ['ui.bootstrap'])
     $scope.hideIf = function() {
       return !$scope.ifValue;
     };
+    $scope.googleCalCheckBox = false;
+    
+    $scope.googleCalBox = function() {
+      return !$scope.googleCalCheckBox;
+    };
+
 
     $scope.refreshEvents = function() {
       Eventstored.getData().then(function(events) {
@@ -103,10 +109,15 @@ angular.module('eventsInfo', ['ui.bootstrap'])
           }
         });
       // Eventstored.getData();
+      if($scope.googleCalCheckBox) {
+        $scope.addToGoogleCal();
+      }
+
       $scope.refreshEvents();
       $scope.renderSideDashboard();
       $scope.refreshAllEvents();
       $scope.renderSideDashboardChart();
+
     };
 
     $scope.addToGoogleCal = function() {
@@ -279,6 +290,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
       Eventstored.getAllData().then(function(events) {
         var formattedEvents = Eventstored.formatAllData(events);
         console.log(formattedEvents);
+        GLOBALVAR = formattedEvents;
       });
     };
 
