@@ -11,12 +11,7 @@ angular.module('userloginFactory', [])
     });
   };
 
-  // var authenticationChecker = function() {
-  //   return !!$window.localStorage.getItem('dibsToken');
-  // };
-
   return {
     userLoginIn : userLoginIn,
-    // validToken: authenticationChecker 
   };
 });
