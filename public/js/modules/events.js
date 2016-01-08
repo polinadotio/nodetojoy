@@ -1,6 +1,6 @@
-angular.module('eventsInfo', ['ui.bootstrap'])
+angular.module('dibs.events', ['ui.bootstrap'])
   .constant('moment', moment)
-  .controller('eventsController', function($scope, $state, Eventstored, moment, $interval, $window, $http) {
+  .controller('eventsController', function($scope, $state, eventModel, moment, $interval, $window, $http) {
     $scope.eve = {};
     $scope.eve.eventDate = '';
     $scope.eve.eventEndDate = '';
@@ -39,7 +39,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
 
 
     $scope.refreshEvents = function() {
-      Eventstored.getData().then(function(events) {
+      eventModel.getData().then(function(events) {
 
 
         var allEvents = events.data;
@@ -52,14 +52,14 @@ angular.module('eventsInfo', ['ui.bootstrap'])
           allEvents[i].diff = diff;
           //console.log('This is the flag', diff);
         }
-        var formattedEvents = Eventstored.formatData(events);
+        var formattedEvents = eventModel.formatData(events);
         $scope.bookedEvents = formattedEvents;
       });
     };
 
     $scope.renderSideDashboard = function() {
       $state.go('dashboardPage.events');
-      Eventstored.getData().then(function successCallback(events) {
+      eventModel.getData().then(function successCallback(events) {
         var allEvents = events.data;
         //console.log(allEvents);
         var today = moment().dayOfYear();
@@ -70,7 +70,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
           allEvents[i].diff = diff;
           //console.log('This is the flag', diff);
         }
-        var formattedEvents = Eventstored.formatData(events);
+        var formattedEvents = eventModel.formatData(events);
         $scope.bookedEvents = formattedEvents;
       }, function errorCallback(response) {
 
@@ -102,13 +102,13 @@ angular.module('eventsInfo', ['ui.bootstrap'])
 
     $scope.eventSubmit = function() {
       var $events = $scope.eve;
-      Eventstored.eventData($events)
+      eventModel.eventData($events)
         .then(function(message) {
           if (!message.data.result) {
             alert('Someone else called Dibs!');
           }
         });
-      // Eventstored.getData();
+
       if($scope.googleCalCheckBox) {
         $scope.addToGoogleCal();
       }
@@ -287,15 +287,15 @@ angular.module('eventsInfo', ['ui.bootstrap'])
     };
 
     $scope.getEventDataButton = function() {
-      Eventstored.getAllData().then(function(events) {
-        var formattedEvents = Eventstored.formatAllData(events);
+      eventModel.getAllData().then(function(events) {
+        var formattedEvents = eventModel.formatAllData(events);
         console.log(formattedEvents);
         GLOBALVAR = formattedEvents;
       });
     };
 
     $scope.refreshAllEvents = function() {
-      Eventstored.getAllData().then(function(events) {
+      eventModel.getAllData().then(function(events) {
 
 
         var allEvents = events.data;
@@ -308,14 +308,14 @@ angular.module('eventsInfo', ['ui.bootstrap'])
           allEvents[i].diff = diff;
           //console.log('This is the flag', diff);
         }
-        var formattedEvents = Eventstored.formatAllData(events);
+        var formattedEvents = eventModel.formatAllData(events);
         $scope.bookedEvents = formattedEvents;
       });
     };
 
     $scope.renderSideDashboardChart = function() {
 
-      Eventstored.getAllData().then(function successCallback(events) {
+      eventModel.getAllData().then(function successCallback(events) {
         var allEvents = events.data;
         //console.log(allEvents);
         var today = moment().dayOfYear();
@@ -326,7 +326,7 @@ angular.module('eventsInfo', ['ui.bootstrap'])
           allEvents[i].diff = diff;
           //console.log('This is the flag', diff);
         }
-        var formattedEvents = Eventstored.formatAllData(events);
+        var formattedEvents = eventModel.formatAllData(events);
         // $scope.bookedEvents = formattedEvents;
       }, function errorCallback(response) {
 
