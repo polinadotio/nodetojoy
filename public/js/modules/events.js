@@ -1,6 +1,6 @@
 angular.module('dibs.events', ['ui.bootstrap'])
   .constant('moment', moment)
-  .controller('eventsController', function($scope, $state, eventModel, moment, $interval, $window, $http) {
+  .controller('eventsController', function($scope, $state, eventModel, googleCalModel, moment, $interval, $window, $http) {
     $scope.eve = {};
     $scope.eve.eventDate = '';
     $scope.eve.eventEndDate = '';
@@ -121,23 +121,16 @@ angular.module('dibs.events', ['ui.bootstrap'])
     };
 
     $scope.addToGoogleCal = function() {
-      // console.log("hey now",$scope.eve);
-      return $http({
-        method: 'POST',
-        url: '/api/events/googlecal',
-        data: {
-          event: $scope.eve
-        }
-      }).then(function(response) {
-        console.log("created google calendar event", response);
-        var successMessage = "Successfully added to Google Calendar! View the event ";
-        $scope.addAlert({
-          type: 'success',
-          msg: successMessage,
-          url: response.data
-        });
-      });
-    };
+      googleCalModel.postToGoogleCal($scope.eve)
+                    .then(function(response) {
+                      var successMessage = "Successfully added to Google Calendar! View the event ";
+                      $scope.addAlert({
+                        type: 'success',
+                        msg: successMessage,
+                        url: response.data
+                      });                      
+                    });
+    }
 
     $scope.signout = function() {
       //remove jwt here
